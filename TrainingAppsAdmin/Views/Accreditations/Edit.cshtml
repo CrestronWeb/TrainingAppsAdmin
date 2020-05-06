@@ -1,0 +1,103 @@
+﻿@model TrainingAppsAdmin.Models.Accreditation
+
+@{
+    ViewBag.Title = "Edit a Accreditation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h2>Accreditations</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>@ViewBag.Title</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Active)
+                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <table class="table" style="width:100%">
+                <tr>
+                    <th>
+                        Accreditations Texts
+                    </th>
+
+                    <th>
+                        @Html.ActionLink("Create New", "Create", "AccreditationsTexts", new { AccreditationsId = Model.Id }, new { @class = "btn btn-success btn-sm" })
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Language
+                    </th>
+                    <th>
+                        Label
+                    </th>
+                   
+
+                    <th></th>
+                </tr>
+                @{
+                    List<TrainingAppsAdmin.ViewModels.vmAccreditationsTexts> AccreditationText = ViewBag.AccreditationText;
+                    foreach (var text in AccreditationText)
+                    {
+
+                        <tr>
+                            <td>
+                                @text.Language
+                            </td>
+                            <td>
+                                @text.Label
+                            </td>
+                            
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "AccreditationsTexts", new { id = text.AccreditationsTextId }, new { @class = "btn btn-default btn-sm" })
+                                @Html.ActionLink("Details", "Details", "AccreditationsTexts", new { id = text.AccreditationsTextId }, new { @class = "btn btn-default btn-sm" })
+                                @Html.ActionLink("Delete", "Delete", "AccreditationsTexts", new { id = text.AccreditationsTextId }, new { @class = "btn btn-danger btn-sm" })
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

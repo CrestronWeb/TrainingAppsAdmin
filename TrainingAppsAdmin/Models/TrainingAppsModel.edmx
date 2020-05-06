@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TrainingappsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accreditations">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccreditationsText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccreditationId" Type="int" Nullable="false" />
+          <Property Name="Language" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Crestron101CoursesContentTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Languages">
+          <Key>
+            <PropertyRef Name="ISO" />
+          </Key>
+          <Property Name="ISO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ActiveUI" Type="bit" Nullable="false" />
+          <Property Name="ActiveClasses" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionsSales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionsText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionId" Type="int" Nullable="false" />
+          <Property Name="Language" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblRegions">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TimeZones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ISO" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccreditationsText_Accreditations">
+          <End Role="Accreditations" Type="Self.Accreditations" Multiplicity="1" />
+          <End Role="AccreditationsText" Type="Self.AccreditationsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accreditations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccreditationsText">
+              <PropertyRef Name="AccreditationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccreditationsText_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="AccreditationsText" Type="Self.AccreditationsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="ISO" />
+            </Principal>
+            <Dependent Role="AccreditationsText">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionsText_Languages">
+          <End Role="Languages" Type="Self.Languages" Multiplicity="1" />
+          <End Role="RegionsText" Type="Self.RegionsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="ISO" />
+            </Principal>
+            <Dependent Role="RegionsText">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionsText_tblRegions">
+          <End Role="tblRegions" Type="Self.tblRegions" Multiplicity="1" />
+          <End Role="RegionsText" Type="Self.RegionsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegions">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="RegionsText">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingappsModelStoreContainer">
+          <EntitySet Name="Accreditations" EntityType="Self.Accreditations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccreditationsText" EntityType="Self.AccreditationsText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseTypes" EntityType="Self.CourseTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Crestron101CoursesContentTypes" EntityType="Self.Crestron101CoursesContentTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Languages" EntityType="Self.Languages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionsSales" EntityType="Self.RegionsSales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionsText" EntityType="Self.RegionsText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRegions" EntityType="Self.tblRegions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeZones" EntityType="Self.TimeZones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccreditationsText_Accreditations" Association="Self.FK_AccreditationsText_Accreditations">
+            <End Role="Accreditations" EntitySet="Accreditations" />
+            <End Role="AccreditationsText" EntitySet="AccreditationsText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccreditationsText_Languages" Association="Self.FK_AccreditationsText_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="AccreditationsText" EntitySet="AccreditationsText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionsText_Languages" Association="Self.FK_RegionsText_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="RegionsText" EntitySet="RegionsText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionsText_tblRegions" Association="Self.FK_RegionsText_tblRegions">
+            <End Role="tblRegions" EntitySet="tblRegions" />
+            <End Role="RegionsText" EntitySet="RegionsText" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TrainingappsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Accreditation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccreditationsTexts" Relationship="Self.FK_AccreditationsText_Accreditations" FromRole="Accreditations" ToRole="AccreditationsText" />
+        </EntityType>
+        <EntityType Name="AccreditationsText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccreditationId" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Accreditation" Relationship="Self.FK_AccreditationsText_Accreditations" FromRole="AccreditationsText" ToRole="Accreditations" />
+          <NavigationProperty Name="Language1" Relationship="Self.FK_AccreditationsText_Languages" FromRole="AccreditationsText" ToRole="Languages" />
+        </EntityType>
+        <EntityType Name="CourseType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Crestron101CoursesContentTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="ISO" />
+          </Key>
+          <Property Name="ISO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveUI" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveClasses" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccreditationsTexts" Relationship="Self.FK_AccreditationsText_Languages" FromRole="Languages" ToRole="AccreditationsText" />
+          <NavigationProperty Name="RegionsTexts" Relationship="TrainingappsModel.FK_RegionsText_Languages" FromRole="Language" ToRole="RegionsText" />
+        </EntityType>
+        <EntityType Name="RegionsSale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionsText">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionId" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblRegion" Relationship="TrainingappsModel.FK_RegionsText_tblRegions" FromRole="RegionsText" ToRole="tblRegion" />
+          <NavigationProperty Name="Language1" Relationship="TrainingappsModel.FK_RegionsText_Languages" FromRole="RegionsText" ToRole="Language" />
+        </EntityType>
+        <EntityType Name="TimeZone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ISO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Label" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_AccreditationsText_Accreditations">
+          <End Role="Accreditations" Type="Self.Accreditation" Multiplicity="1" />
+          <End Role="AccreditationsText" Type="Self.AccreditationsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accreditations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccreditationsText">
+              <PropertyRef Name="AccreditationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccreditationsText_Languages">
+          <End Role="Languages" Type="Self.Language" Multiplicity="1" />
+          <End Role="AccreditationsText" Type="Self.AccreditationsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Languages">
+              <PropertyRef Name="ISO" />
+            </Principal>
+            <Dependent Role="AccreditationsText">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TrainingappsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accreditations" EntityType="Self.Accreditation" />
+          <EntitySet Name="AccreditationsTexts" EntityType="Self.AccreditationsText" />
+          <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
+          <EntitySet Name="Crestron101CoursesContentTypes" EntityType="Self.Crestron101CoursesContentTypes" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="RegionsSales" EntityType="Self.RegionsSale" />
+          <EntitySet Name="RegionsTexts" EntityType="Self.RegionsText" />
+          <EntitySet Name="TimeZones" EntityType="Self.TimeZone" />
+          <AssociationSet Name="FK_AccreditationsText_Accreditations" Association="Self.FK_AccreditationsText_Accreditations">
+            <End Role="Accreditations" EntitySet="Accreditations" />
+            <End Role="AccreditationsText" EntitySet="AccreditationsTexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccreditationsText_Languages" Association="Self.FK_AccreditationsText_Languages">
+            <End Role="Languages" EntitySet="Languages" />
+            <End Role="AccreditationsText" EntitySet="AccreditationsTexts" />
+          </AssociationSet>
+          <EntitySet Name="tblRegions" EntityType="TrainingappsModel.tblRegion" />
+          <AssociationSet Name="FK_RegionsText_tblRegions" Association="TrainingappsModel.FK_RegionsText_tblRegions">
+            <End Role="tblRegion" EntitySet="tblRegions" />
+            <End Role="RegionsText" EntitySet="RegionsTexts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionsText_Languages" Association="TrainingappsModel.FK_RegionsText_Languages">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="RegionsText" EntitySet="RegionsTexts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblRegion">
+          <Key>
+            <PropertyRef Name="RegionId" />
+          </Key>
+          <Property Name="RegionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RegionsTexts" Relationship="TrainingappsModel.FK_RegionsText_tblRegions" FromRole="tblRegion" ToRole="RegionsText" />
+        </EntityType>
+        <Association Name="FK_RegionsText_tblRegions">
+          <End Type="TrainingappsModel.tblRegion" Role="tblRegion" Multiplicity="1" />
+          <End Type="TrainingappsModel.RegionsText" Role="RegionsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblRegion">
+              <PropertyRef Name="RegionId" />
+            </Principal>
+            <Dependent Role="RegionsText">
+              <PropertyRef Name="RegionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionsText_Languages">
+          <End Type="TrainingappsModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="TrainingappsModel.RegionsText" Role="RegionsText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="ISO" />
+            </Principal>
+            <Dependent Role="RegionsText">
+              <PropertyRef Name="Language" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TrainingappsModelStoreContainer" CdmEntityContainer="TrainingappsEntities">
+          <EntitySetMapping Name="Accreditations">
+            <EntityTypeMapping TypeName="TrainingappsModel.Accreditation">
+              <MappingFragment StoreEntitySet="Accreditations">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccreditationsTexts">
+            <EntityTypeMapping TypeName="TrainingappsModel.AccreditationsText">
+              <MappingFragment StoreEntitySet="AccreditationsText">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AccreditationId" ColumnName="AccreditationId" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseTypes">
+            <EntityTypeMapping TypeName="TrainingappsModel.CourseType">
+              <MappingFragment StoreEntitySet="CourseTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Crestron101CoursesContentTypes">
+            <EntityTypeMapping TypeName="TrainingappsModel.Crestron101CoursesContentTypes">
+              <MappingFragment StoreEntitySet="Crestron101CoursesContentTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="TrainingappsModel.Language">
+              <MappingFragment StoreEntitySet="Languages">
+                <ScalarProperty Name="ISO" ColumnName="ISO" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ActiveUI" ColumnName="ActiveUI" />
+                <ScalarProperty Name="ActiveClasses" ColumnName="ActiveClasses" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionsSales">
+            <EntityTypeMapping TypeName="TrainingappsModel.RegionsSale">
+              <MappingFragment StoreEntitySet="RegionsSales">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionsTexts">
+            <EntityTypeMapping TypeName="TrainingappsModel.RegionsText">
+              <MappingFragment StoreEntitySet="RegionsText">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeZones">
+            <EntityTypeMapping TypeName="TrainingappsModel.TimeZone">
+              <MappingFragment StoreEntitySet="TimeZones">
+                <ScalarProperty Name="ISO" ColumnName="ISO" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRegions">
+            <EntityTypeMapping TypeName="TrainingappsModel.tblRegion">
+              <MappingFragment StoreEntitySet="tblRegions">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

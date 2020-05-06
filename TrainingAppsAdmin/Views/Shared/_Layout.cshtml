@@ -1,0 +1,60 @@
+﻿ 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script type="text/javascript">
+        var baseUrl = "@Url.Content("~")";
+    </script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+    
+
+    <meta name="description" content="The description of my page" />
+</head>
+<body>
+    <div id='content'>
+
+        <header id="header1">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    @*<div class="container-fluid nav-left"> <a class="brand" href="http://webadmin.crestron.com:8080/">
+                        <img alt="Crestron Electronics Inc." src="~/Images/crestron_logo.png"></a> </div>*@
+                    <div class="nav-right">&nbsp; </div>
+                    <!--/.nav-collapse -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Accreditations", "Index", "Accreditations")</li>
+                            <li>@Html.ActionLink("CourseTypes", "Index", "CourseTypes")</li>
+                            <li>@Html.ActionLink("Crestron101CoursesContentTypes", "Index", "Crestron101CoursesContentTypes")</li>    
+                            <li>@Html.ActionLink("Languages", "Index", "Languages")</li>
+                            <li>@Html.ActionLink("Regions", "Index", "Regions")</li>
+                            <li>@Html.ActionLink("RegionsSales", "Index", "RegionsSales")</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

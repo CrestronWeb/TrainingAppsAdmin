@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="42e347010622447e9b587b24f7226fae" Name="Diagram1">
+        <EntityTypeShape EntityType="TrainingappsModel.Accreditation" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.AccreditationsText" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.CourseType" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.Crestron101CoursesContentTypes" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.Language" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.RegionsSale" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.RegionsText" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrainingappsModel.TimeZone" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="TrainingappsModel.FK_AccreditationsText_Accreditations" ManuallyRouted="false" />
+        <AssociationConnector Association="TrainingappsModel.FK_AccreditationsText_Languages" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TrainingappsModel.tblRegion" Width="1.5" PointX="4.5" PointY="7.75" />
+        <AssociationConnector Association="TrainingappsModel.FK_RegionsText_tblRegions" />
+        <AssociationConnector Association="TrainingappsModel.FK_RegionsText_Languages" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
